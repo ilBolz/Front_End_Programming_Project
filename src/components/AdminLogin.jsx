@@ -1,37 +1,50 @@
 import React from "react";
+import { loginAdmin } from "../redux/AuthSlice";
+import { useDispatch } from "react-redux";
 
-const AdminLogin = ({ onBack }) => {
+const AdminLogin = ({ onBack, closeModal }) => {
+  const dispatch = useDispatch();
+
+  const handleAdminLogin = (username) => {
+    dispatch(loginAdmin({ username }));
+    closeModal();
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md border border-gray-100">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Admin Login
         </h2>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log(e.target.email);
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            handleAdminLogin(email, password);
+          }}
+        >
           <div className="mb-4">
-            <label htmlFor="admin-email" className="block text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-gray-700 mb-1">
               Admin Email:
             </label>
             <input
               type="email"
-              id="admin-email"
-              name="admin-email"
+              id="email"
+              name="email"
               required
               placeholder="Enter admin email"
               className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-200"
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="admin-password"
-              className="block text-gray-700 mb-1"
-            >
+            <label htmlFor="password" className="block text-gray-700 mb-1">
               Admin Password:
             </label>
             <input
               type="password"
-              id="admin-password"
-              name="admin-password"
+              id="password"
+              name="password"
               required
               placeholder="Enter admin password"
               className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-200"

@@ -6,10 +6,12 @@ import CategorySection from "../components/CategorySection";
 import { setProducts } from "../redux/ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product);
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(setProducts(ProductList));
   });
@@ -29,7 +31,10 @@ const Home = () => {
             <p className="text-3xl md:text-5xl font-extrabold leading-tight">
               just a click away.
             </p>
-            <button className="mt-6 bg-white text-black px-4 py-2 rounded shadow transform transition-transform hover:scale-105 duration-300 cursor-pointer">
+            <button
+              className="mt-6 bg-white text-black px-4 py-2 rounded shadow transform transition-transform hover:scale-105 duration-300 cursor-pointer"
+              onClick={() => navigate("/shop")}
+            >
               SHOP NOW
             </button>
           </div>

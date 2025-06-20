@@ -1,5 +1,7 @@
 import React from "react";
 import ManProduct from "../assets/images/menProduct.jpg";
+import WomanProduct from "../assets/images/womanproduct.jpg";
+import KidsProduct from "../assets/images/kidsproduct.jpg";
 
 const categories = [
   {
@@ -8,11 +10,11 @@ const categories = [
   },
   {
     title: "Women",
-    imageUrl: ManProduct,
+    imageUrl: WomanProduct,
   },
   {
     title: "Kids",
-    imageUrl: ManProduct,
+    imageUrl: KidsProduct,
   },
 ];
 
@@ -23,7 +25,7 @@ const CategorySection = () => {
         {categories.map((category, index) => (
           <div
             key={index}
-            className="flex-1 bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:border-blue-300 cursor-default cursor-pointer"
+            className="flex-1 bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:border-blue-300 cursor-default"
           >
             <img
               src={category.imageUrl}

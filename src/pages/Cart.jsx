@@ -121,13 +121,7 @@ const Cart = () => {
             </div>
           </div>
           <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-            <ChangeAddress
-              onSave={(newAddress) => {
-                setAddress(newAddress);
-                setIsModalOpen(false);
-              }}
-              onCancel={() => setIsModalOpen(false)}
-            />
+            <ChangeAddress onCancel={() => setIsModalOpen(false)} />
           </Modal>
         </div>
       ) : (

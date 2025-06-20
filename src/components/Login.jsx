@@ -1,13 +1,29 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/AuthSlice";
 
-const Login = ({ openSignUp, openAdminLogin }) => {
+const Login = ({ openSignUp, openAdminLogin, closeModal }) => {
+  //   const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogin = (username) => {
+    dispatch(login({ username }));
+    closeModal();
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md border border-gray-100">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Login
         </h2>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            handleLogin(email, password);
+          }}
+        >
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 mb-1">
               Email:

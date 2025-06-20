@@ -1,13 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/AuthSlice";
 
-const Register = ({ openLogin }) => {
+const Register = ({ openLogin, closeModal }) => {
+  const dispatch = useDispatch();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const username = e.target.name.value;
+    dispatch(register({ username }));
+    closeModal();
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md border border-gray-100">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           Sign Up
         </h2>
-        <form>
+        <form onSubmit={(e) => handleRegister(e)}>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 mb-1">
               Name:

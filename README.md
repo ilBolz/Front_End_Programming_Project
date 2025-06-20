@@ -1,12 +1,35 @@
-# React + Vite
+# E-Commerce React/Redux Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Project Overview
 
-Currently, two official plugins are available:
+This project is a modern e-commerce web application built with React and Redux Toolkit. It provides a complete shopping experience, including product browsing, detailed product pages, cart management, authentication, and an admin section. The application integrates with an external API for product data and maintains a consistent, user-friendly interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Running Instructions
 
-## Expanding the ESLint configuration
+1. **Start the development server:**
+   npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. **Open your browser:**
+   Visit [http://localhost:5173](http://localhost:5173) to use the app.
+
+## Features
+
+- Product listing and detail pages
+- Add to cart, update quantity, remove items
+- Checkout process with address management
+- User authentication (login, register)
+- Admin login and admin section for product management
+- Fetch products from an external API (https://fakestoreapi.com/products)
+- Responsive and modern UI
+- About and Contact pages
+- Modal and popup management
+- State management with Redux Toolkit
+
+## Technologies Used
+
+- **React** (with functional components and hooks)
+- **Redux Toolkit** (for state management)
+- **Vite** (for fast development and build)
+- **JavaScript (ES6+)**
+- **CSS** (custom styles)
+- **External API** (Fake Store API)
