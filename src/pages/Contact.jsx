@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const navigate = useNavigate();
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const isEmailValid = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const isFormValid =
+    form.name.trim() !== "" &&
+    isEmailValid(form.email) &&
+    form.message.trim() !== "";
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50 py-12 px-4">
@@ -27,6 +40,8 @@ const Contact = () => {
               required
               placeholder="Enter your name"
               className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-200"
+              value={form.name}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-4">
@@ -40,6 +55,8 @@ const Contact = () => {
               required
               placeholder="Enter your email"
               className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-200"
+              value={form.email}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-4">
@@ -53,13 +70,17 @@ const Contact = () => {
               placeholder="Type your message..."
               rows={4}
               className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-200"
+              value={form.message}
+              onChange={handleChange}
             ></textarea>
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded transition cursor-pointer"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={!isFormValid}
             onClick={(e) => {
               e.preventDefault();
+              if (!isFormValid) return;
               alert("Message sent! We will get back to you soon.");
               navigate("/");
             }}
