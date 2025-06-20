@@ -4,6 +4,7 @@ import EmptyCart from "../assets/Images/emptycart.png";
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../components/Modal";
 import ChangeAddress from "../components/ChangeAddress";
+import { removeFromCart } from "../redux/CartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -11,19 +12,6 @@ const Cart = () => {
   const [address, setAddress] = useState("Main Street 123, City, Country");
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const products = cart?.products || [];
-
-  // Funzioni per aumentare/diminuire quantità e rimuovere prodotto
-  const handleIncrease = (id) => {
-    dispatch({ type: "cart/increaseQuantity", payload: id });
-  };
-
-  const handleDecrease = (id) => {
-    dispatch({ type: "cart/decreaseQuantity", payload: id });
-  };
-
-  const handleRemove = (id) => {
-    dispatch({ type: "cart/removeFromCart", payload: id });
-  };
 
   return (
     <div className="px-4 md:px-16 lg:px-24 py-8">
@@ -55,11 +43,10 @@ const Cart = () => {
                       <h3 className="font-semibold">{product.name}</h3>
                     </div>
                   </div>
-                  <div className="col-span-2">${product.price}</div>
+                  <div className="col-span-2">${product.price.toFixed(2)}</div>
                   <div className="col-span-2 flex justify-center items-center space-x-2">
                     <button
                       className="px-2 py-1 border rounded"
-                      onClick={() => handleDecrease(product.id)}
                       aria-label="Decrease quantity"
                     >
                       -
@@ -67,20 +54,19 @@ const Cart = () => {
                     <span>{product.quantity}</span>
                     <button
                       className="px-2 py-1 border rounded"
-                      onClick={() => handleIncrease(product.id)}
                       aria-label="Increase quantity"
                     >
                       +
                     </button>
                   </div>
                   <div className="col-span-2">
-                    ${product.quantity * product.price}
+                    <p> ${(product.quantity * product.price).toFixed(2)}</p>
                   </div>
                   <div className="col-span-1 flex justify-center">
                     <button
                       className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                      onClick={() => handleRemove(product.id)}
                       aria-label="Remove product"
+                      onClick={() => dispatch(removeFromCart(product.id))}
                     >
                       <FaTrashAlt />
                     </button>
@@ -114,7 +100,7 @@ const Cart = () => {
               <div className="flex justify-between items-center mb-4">
                 <span className="text-gray-600">Total Price:</span>
                 <span className="font-bold text-lg text-blue-700">
-                  ${cart.totalPrice}
+                  ${cart.totalPrice.toFixed(2)}
                 </span>
               </div>
               <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded transition">
