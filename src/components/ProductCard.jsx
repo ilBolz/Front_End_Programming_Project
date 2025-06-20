@@ -2,23 +2,34 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 import { addToCart } from "../redux/CartSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleAddToCart = (e, product) => {
     e.stopPropagation();
     e.preventDefault();
     dispatch(addToCart(product));
     alert("Product added succesfully");
   };
+
+  const handleCardClick = () => {
+    navigate(`/product/${product.id}`);
+  };
+
   return (
-    <div className="bg-white p-4 shadpw rounded relative border transform transition-transform duration-300 hover:scale-105 cursor-pointer">
+    <div
+      className="bg-white p-4 shadpw rounded relative border transform transition-transform duration-300 hover:scale-105 cursor-pointer"
+      onClick={handleCardClick}
+    >
       <img
         src={product.image}
-        alt={product.name}
+        alt={product.name || product.title}
         className="w-full h-48 object-contain mb-4"
       />
-      <h3 className="text-lg font-semibold">{product.name}</h3>
+      <h3 className="text-lg font-semibold">{product.name || product.title}</h3>
       <p className="text-gray-500">${product.price}</p>
       <div className="flex items-center mt-2">
         <FaStar className="text-yellow-500" />
