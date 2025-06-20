@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   totalQuantity: 0,
   totalPrice: 0,
+  address: "Via Roma 123, Rome, Italy",
 };
 
 const cartSlice = createSlice({
@@ -38,8 +39,39 @@ const cartSlice = createSlice({
         state.products = state.products.filter((item) => item.id !== id);
       }
     },
+    increaseQuantity(state, action) {
+      const id = action.payload;
+      const findItem = state.products.find((item) => item.id === id);
+      if (findItem) {
+        findItem.quantity++;
+        findItem.totalPrice += findItem.price;
+        state.totalPrice += findItem.price;
+        state.totalQuantity++;
+      }
+    },
+    decreaseQuantity(state, action) {
+      const id = action.payload;
+      const findItem = state.products.find((item) => item.id === id);
+      if (findItem.quantity > 1) {
+        if (findItem) {
+          findItem.quantity--;
+          findItem.totalPrice -= findItem.price;
+          state.totalPrice -= findItem.price;
+          state.totalQuantity--;
+        }
+      }
+    },
+    changeAddress(state, action) {
+      state.address = action.payload;
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+  changeAddress,
+} = cartSlice.actions;
 export default cartSlice.reducer;
