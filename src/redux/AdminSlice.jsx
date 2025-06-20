@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchProductsThunk } from "./AdminThunks";
 
 const initialState = {
   items: [],
@@ -10,20 +11,28 @@ const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    fetchStart(state) {
-      state.loading = true;
+    reset(state) {
+      state.items = [];
+      state.loading = false;
       state.error = null;
     },
-    fetchSuccess(state, action) {
-      state.loading = false;
-      state.items = action.payload;
-    },
-    fetchError(state, action) {
-      state.loading = false;
-      state.error = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProductsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductsThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchProductsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Unknown error";
+      });
   },
 });
 
-export const { fetchStart, fetchSuccess, fetchError } = adminSlice.actions;
+export const { reset } = adminSlice.actions;
 export default adminSlice.reducer;

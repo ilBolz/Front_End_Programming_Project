@@ -1,21 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStart, fetchSuccess, fetchError } from "../redux/AdminSlice";
-
-const fetchProducts = () => async (dispatch) => {
-  dispatch(fetchStart());
-  try {
-    const response = await fetch("https://fakestoreapi.com/products");
-    const data = await response.json();
-    dispatch(fetchSuccess(data));
-  } catch (error) {
-    dispatch(fetchError(error.message));
-  }
-};
+import { fetchProductsThunk } from "../redux/AdminThunks";
 
 const AdminSection = () => {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.admin);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "admin/reset" });
+    };
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen bg-blue-50 py-12 px-4">
@@ -25,8 +20,8 @@ const AdminSection = () => {
         </h1>
         <div className="flex justify-center mb-6">
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded transition"
-            onClick={() => dispatch(fetchProducts())}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded transition cursor-pointer"
+            onClick={() => dispatch(fetchProductsThunk())}
             disabled={loading}
           >
             {loading ? "Loading..." : "Fetch Products"}
