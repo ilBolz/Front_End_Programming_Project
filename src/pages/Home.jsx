@@ -14,7 +14,7 @@ const Home = () => {
     dispatch(setProducts(ProductList));
   });
   return (
-    <div className="bg-white mt-2 px-4 md:px-16 lg:px-24">
+    <div className="bg-blue-50 mt-2 px-4 md:px-16 lg:px-24">
       <div className="container mx-auto py-4 flex flex-col md:flex-row space-x-2">
         <div className="w-full mt-8 md:mt-0 h-96 relative">
           <img
