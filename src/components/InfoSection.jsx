@@ -16,7 +16,7 @@ const InfoSection = () => {
     },
     {
       icon: <FaMoneyBill1Wave className="text-3xl text-blue-400" />,
-      title: "Discount",
+      title: "Refound Policy",
       description: "Full refound policy",
     },
     {
