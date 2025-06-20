@@ -4,6 +4,7 @@ import EmptyCart from "../assets/Images/emptycart.png";
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../components/Modal";
 import ChangeAddress from "../components/ChangeAddress";
+import Login from "../components/Login";
 import {
   removeFromCart,
   increaseQuantity,
@@ -14,9 +15,19 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const auth = useSelector((state) => state.auth); // Recupera lo stato di autenticazione
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false); // Stato per mostrare la modale di login
   const products = cart?.products || [];
   const navigate = useNavigate();
+
+  const handleProceedToCheckout = () => {
+    if (auth.isAuthenticated) {
+      navigate("/checkout");
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   return (
     <div className="px-4 md:px-16 lg:px-24 py-8">
@@ -114,7 +125,7 @@ const Cart = () => {
               </div>
               <button
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded transition cursor-pointer"
-                onClick={() => navigate("/checkout")}
+                onClick={handleProceedToCheckout}
               >
                 Proceed to checkout
               </button>
@@ -122,6 +133,11 @@ const Cart = () => {
           </div>
           <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
             <ChangeAddress onCancel={() => setIsModalOpen(false)} />
+          </Modal>
+          {/* Modale di Login se non autenticato */}
+          <Modal isModalOpen={showLoginModal} setIsModalOpen={setShowLoginModal}>
+            {/* Importa il componente Login e passagli la funzione per chiudere la modale */}
+            <Login closeModal={() => setShowLoginModal(false)} />
           </Modal>
         </div>
       ) : (

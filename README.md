@@ -10,7 +10,7 @@ This project is a modern e-commerce web application built with React and Redux T
    npm run dev
 
 2. **Open your browser:**
-   Visit [http://localhost:5173](http://localhost:5173) to use the app.
+   Visit http://localhost:5173 to use the app.
 
 ## Features
 
