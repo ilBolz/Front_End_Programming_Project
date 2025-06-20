@@ -6,10 +6,12 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const products = useSelector((state) => state.cart.products);
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -33,8 +35,13 @@ const Navbar = () => {
 
         {/* Icons */}
         <div className="flex items-center space-x-4">
-          <Link to="/cart" aria-label="Cart">
+          <Link to="/cart" aria-label="Cart" className="relative">
             <FaShoppingCart className="text-xl text-gray-600 hover:text-blue-500 transition" />
+            {products.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-blue-500 w-5 h-5 rounded-full flex justify-center items-center text-white text-xs font-bold shadow">
+                {products.length}
+              </span>
+            )}
           </Link>
           <button className="hidden md:block text-sm text-gray-700 hover:text-blue-500 transition">
             Login | Register
